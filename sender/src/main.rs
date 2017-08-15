@@ -15,7 +15,9 @@ use libc::{c_void, recv, MSG_WAITALL};
 use atbash::decode;
 
 static SOCK: &'static str = "127.0.0.1:8888";
-static MSGLEN: usize = 32 * 8;
+
+/* version = 8 bytes, body = 8 bytes */
+static MSGLEN: usize = 16;
 
 pub mod errors {
     error_chain! {
@@ -54,7 +56,7 @@ quick_main!(|| -> Result<i32> {
         }
     };
 
-    let mut payload = vec![0u8; 32];
+    let mut payload = vec![0u8; MSGLEN];
 
     let mut fd_ = socket::accept(fd)?;
     loop {
@@ -70,19 +72,15 @@ quick_main!(|| -> Result<i32> {
             fd_ = socket::accept(fd)?;
             continue;
         } else if nread < 1 {
-            panic!("recvmmsg failed: {}", Errno::last());
+            bail!("recvmmsg failed: {}", Errno::last());
+        } else if nread != MSGLEN as isize {
+            bail!("Incomplete read of size {}", nread)
         }
         println!("Read {} bytes...\n", nread);
 
-        let version = decode(&String::from_utf8_lossy(&payload[..7]));
-        let verb = decode(&String::from_utf8_lossy(&payload[8..15]));
-        let body = decode(&String::from_utf8_lossy(&payload[16..]));
+        let vers = decode(&String::from_utf8_lossy(&payload[..8]));
+        let body = decode(&String::from_utf8_lossy(&payload[8..16]));
 
-        println!(
-            "\tversion: {:?}\n\tverb: {:?}\n\tbody: {:?}",
-            version,
-            verb,
-            body
-        );
+        println!("\tversion: {:?}\n\tbody: {:?}", vers, body);
     }
 });
