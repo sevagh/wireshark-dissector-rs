@@ -1,0 +1,17 @@
+[workspace]
+members = ["sender",
+           "receiver"]
+
+[profile.dev]
+debug = true
+debug-assertions = true
+lto = false
+opt-level = 0
+panic = "unwind"
+
+[profile.release]
+debug = true
+debug-assertions = false
+lto = true
+opt-level = 3
+panic = "unwind"
