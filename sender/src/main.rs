@@ -5,12 +5,14 @@ extern crate libc;
 extern crate core;
 #[macro_use]
 extern crate error_chain;
+extern crate atbash;
 
 use nix::errno::Errno;
 use nix::sys::socket;
 use std::os::unix::io::RawFd;
 use std::net::ToSocketAddrs;
 use libc::{c_void, recv, MSG_WAITALL};
+use atbash::decode;
 
 static SOCK: &'static str = "127.0.0.1:8888";
 static MSGLEN: usize = 32 * 8;
@@ -72,9 +74,9 @@ quick_main!(|| -> Result<i32> {
         }
         println!("Read {} bytes...\n", nread);
 
-        let version = String::from_utf8_lossy(&payload[..7]);
-        let verb = String::from_utf8_lossy(&payload[8..15]);
-        let body = String::from_utf8_lossy(&payload[16..]);
+        let version = decode(&String::from_utf8_lossy(&payload[..7]));
+        let verb = decode(&String::from_utf8_lossy(&payload[8..15]));
+        let body = decode(&String::from_utf8_lossy(&payload[16..]));
 
         println!(
             "\tversion: {:?}\n\tverb: {:?}\n\tbody: {:?}",

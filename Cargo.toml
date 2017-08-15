@@ -1,6 +1,7 @@
 [workspace]
 members = ["sender",
-           "receiver"]
+           "receiver",
+           "atbash"]
 
 [profile.dev]
 debug = true

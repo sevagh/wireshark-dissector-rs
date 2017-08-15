@@ -2,10 +2,15 @@
 name = "sender"
 version = "0.1.0"
 dependencies = [
+ "atbash 0.1.0",
  "error-chain 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.29 (registry+https://github.com/rust-lang/crates.io-index)",
  "nix 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "atbash"
+version = "0.1.0"
 
 [[package]]
 name = "backtrace"
