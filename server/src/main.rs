@@ -6,6 +6,7 @@ extern crate core;
 #[macro_use]
 extern crate error_chain;
 extern crate atbash;
+extern crate common;
 
 use nix::errno::Errno;
 use nix::sys::socket;
@@ -13,22 +14,8 @@ use std::os::unix::io::RawFd;
 use std::net::ToSocketAddrs;
 use libc::{c_void, recv, MSG_WAITALL};
 use atbash::decode;
-
-static SOCK: &'static str = "127.0.0.1:8888";
-
-/* version = 8 bytes, body = 8 bytes */
-static MSGLEN: usize = 16;
-
-pub mod errors {
-    error_chain! {
-        foreign_links {
-            Nix(::nix::Error);
-            Io(::std::io::Error);
-        }
-    }
-}
-
-use errors::*;
+use common::{MSGLEN, SOCK};
+use common::errors::*;
 
 quick_main!(|| -> Result<i32> {
     let fd: Result<RawFd> = {
@@ -45,7 +32,7 @@ quick_main!(|| -> Result<i32> {
             fd,
             &socket::SockAddr::new_inet(socket::InetAddr::from_std(&address)),
         )?;
-        socket::listen(fd, 16).expect("Couldn't listen for connections");
+        socket::listen(fd, 16)?;
         Ok(fd)
     };
 
@@ -72,7 +59,7 @@ quick_main!(|| -> Result<i32> {
             fd_ = socket::accept(fd)?;
             continue;
         } else if nread < 1 {
-            bail!("recvmmsg failed: {}", Errno::last());
+            bail!("recv failed: {}", Errno::last());
         } else if nread != MSGLEN as isize {
             bail!("Incomplete read of size {}", nread)
         }
