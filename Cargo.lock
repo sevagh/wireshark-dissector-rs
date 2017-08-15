@@ -1,5 +1,5 @@
 [root]
-name = "sender"
+name = "server"
 version = "0.1.0"
 dependencies = [
  "atbash 0.1.0",
@@ -44,6 +44,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "cfg-if"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "client"
+version = "0.1.0"
 
 [[package]]
 name = "dbghelp-sys"
@@ -91,10 +95,6 @@ dependencies = [
  "libc 0.2.29 (registry+https://github.com/rust-lang/crates.io-index)",
  "void 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
-
-[[package]]
-name = "receiver"
-version = "0.1.0"
 
 [[package]]
 name = "rustc-demangle"

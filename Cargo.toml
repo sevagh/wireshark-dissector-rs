@@ -1,6 +1,6 @@
 [workspace]
-members = ["sender",
-           "receiver",
+members = ["server",
+           "client",
            "atbash"]
 
 [profile.dev]
