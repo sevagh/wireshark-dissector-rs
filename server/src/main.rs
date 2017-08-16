@@ -5,7 +5,7 @@ extern crate libc;
 extern crate core;
 #[macro_use]
 extern crate error_chain;
-extern crate atbash;
+extern crate transform;
 extern crate common;
 
 use nix::errno::Errno;
@@ -13,7 +13,7 @@ use nix::sys::socket;
 use std::os::unix::io::RawFd;
 use std::net::ToSocketAddrs;
 use libc::{c_void, recv, MSG_WAITALL};
-use atbash::decode;
+use transform::decode;
 use common::{MSGLEN, SOCK};
 use common::errors::*;
 
@@ -65,9 +65,13 @@ quick_main!(|| -> Result<i32> {
         }
         println!("Read {} bytes...\n", nread);
 
-        let vers = decode(&String::from_utf8_lossy(&payload[..8]));
-        let body = decode(&String::from_utf8_lossy(&payload[8..16]));
+        let vers = decode(&payload[..8]);
+        let body = decode(&payload[8..16]);
 
-        println!("\tversion: {:?}\n\tbody: {:?}", vers, body);
+        println!(
+            "\tversion: {:?}\n\tbody: {:?}",
+            String::from_utf8_lossy(&vers),
+            String::from_utf8_lossy(&body)
+        );
     }
 });

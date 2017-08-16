@@ -1,4 +1,4 @@
-WORKSPACES := common server client atbash
+WORKSPACES := common server client transform
 
 all: lint
 

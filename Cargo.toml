@@ -1,5 +1,5 @@
 [workspace]
-members = ["common", "server", "client", "atbash"]
+members = ["common", "server", "client", "transform"]
 
 [profile.dev]
 debug = true

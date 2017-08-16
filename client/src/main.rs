@@ -5,15 +5,16 @@ extern crate libc;
 extern crate core;
 #[macro_use]
 extern crate error_chain;
-extern crate atbash;
+extern crate transform;
 extern crate common;
 
 use nix::errno::Errno;
 use nix::sys::socket;
 use std::os::unix::io::RawFd;
 use std::net::ToSocketAddrs;
+use std::ffi::CString;
 use libc::{c_void, send};
-use atbash::encode;
+use transform::encode;
 use common::{MSGLEN, SOCK};
 use common::errors::*;
 
@@ -42,13 +43,10 @@ quick_main!(|| -> Result<i32> {
         }
     };
 
-    let version = encode("testver3").into_bytes();
-    println!("VERSION LEN: {:#?}", version.len());
-    let body = encode("hifriend").into_bytes();
-    println!("BODY LEN: {:#?}", body.len());
+    let version = encode(&CString::new("testver3").unwrap().into_bytes());
+    let body = encode(&CString::new("hifriend").unwrap().into_bytes());
 
     let mut payload = [&version[..], &body[..]].concat();
-    println!("PAYLOAD LEN: {:#?}", payload.len());
 
     let nsent = unsafe { send(fd, payload.as_mut_ptr() as *mut c_void, MSGLEN, 0) };
 
