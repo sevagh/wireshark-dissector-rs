@@ -1,6 +1,12 @@
 #include "config.h"
 
 #include <epan/packet.h>
+#include <wiretap/wtap.h>
+#include <epan/tvbuff-int.h>
+#include <epan/tvbuff.h>
+
+#include <stdio.h>
+#include <glib.h>
 
 #define DUMMY_PORT 8888
 
@@ -17,12 +23,13 @@ static int dissect_dummy(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, vo
 
    if (tree) { /* we are being asked for details */
       proto_item *ti;
-      DummyPacket *msg;
 
       ti = proto_tree_add_item(tree, proto_dummy, tvb, 0, -1, FALSE);
       tree = proto_item_add_subtree(ti, ett_dummy);
-      msg = (DummyPacket *) wmem_alloc(wmem_packet_scope(), sizeof(DummyPacket));
-      DummyPacket_dissect(msg, proto_dummy, tvb, 0, pinfo, tree);
+
+      for (uint i = 0; i < tvb->length; ++i) {
+	    printf("%ux\n", tvb->real_data[i]);
+      }
    }
 
    return tvb_captured_length(tvb);
@@ -39,7 +46,6 @@ void proto_register_dummy(void)
          "dummy"           /* abbrev */
       );
 
-   DummyPacket_register(proto_dummy);
    proto_register_subtree_array(ett, array_length(ett));
 }
 
