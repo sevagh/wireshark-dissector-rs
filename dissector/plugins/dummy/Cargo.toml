@@ -1,0 +1,8 @@
+[package]
+name = "dummy_dissector"
+version = "0.1.0"
+authors = ["Sevag Hanssian <sevag.hanssian@gmail.com>"]
+
+[lib]
+name = "dummy_dissector"
+crate-type = ["staticlib"]

@@ -1,0 +1,5 @@
+libdummy_dissector:
+	@cargo build
+	@cp ../../../target/debug/libdummy_dissector.a ./
+
+.PHONY: libdummy_dissector

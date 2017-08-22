@@ -1,5 +1,5 @@
 [workspace]
-members = ["common", "server", "client", "transform"]
+members = ["common", "server", "client", "transform", "./dissector/plugins/dummy"]
 
 [profile.dev]
 debug = true

@@ -8,6 +8,7 @@
 
 #include <glib.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #include "./packet-dummy.h"
 
@@ -20,6 +21,8 @@ static int hf_dummy_body = -1;
 
 static int
 dissect_dummy(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *data);
+
+extern int32_t dissect_dummy_rs(void *data);
 
 void
 proto_register_dummy(void);
@@ -34,15 +37,13 @@ dissect_dummy(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *data)
 	col_set_str(pinfo->cinfo, COL_PROTOCOL, "DUMMY");
 	col_clear(pinfo->cinfo, COL_INFO);
 
+        dissect_dummy_rs(tvb->real_data);
+
 	if (tree) { /* we are being asked for details */
 		proto_item *ti;
 
 		ti = proto_tree_add_item(tree, proto_dummy, tvb, 0, -1, FALSE);
 		tree = proto_item_add_subtree(ti, ett_dummy);
-
-		for (uint i = 0; i < tvb->length; ++i) {
-			printf("%ux\n", tvb->real_data[i]);
-		}
 	}
 
 	return tvb_captured_length(tvb);

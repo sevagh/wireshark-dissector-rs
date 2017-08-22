@@ -34,7 +34,7 @@ dummy_la_CPPFLAGS = $(AM_CPPFLAGS) $(PLUGIN_CPPFLAGS)
 
 dummy_la_CFLAGS = $(AM_CFLAGS) $(PLUGIN_CFLAGS)
 
-dummy_la_LDFLAGS = $(PLUGIN_LDFLAGS)
+dummy_la_LDFLAGS = $(PLUGIN_LDFLAGS) libdummy_dissector.a
 
 CLEANFILES = \
 	dummy \
