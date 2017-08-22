@@ -10,13 +10,11 @@ use libc::{memcpy, c_void};
 
 #[no_mangle]
 pub extern "C" fn dissect_dummy_rs(data: &mut [u8]) -> i32 {
-    println!("Data length: {:#?}", data.len());
-    println!("Data: {:#?}", data);
-
-    if data.len() != MSGLEN {
-        eprintln!("Payload length should be {} bytes", MSGLEN);
+    if data.len() > 2*MSGLEN {
         return -1;
     }
+
+    println!("Data length: {:#?}", data.len());
 
     let mut decoded_version = decode(&data[..8]);
     let mut decoded_body = decode(&data[8..]);
@@ -33,5 +31,8 @@ pub extern "C" fn dissect_dummy_rs(data: &mut [u8]) -> i32 {
             MSGLEN * 8,
         );
     }
+
+    println!("Decoded ver: {}", String::from_utf8_lossy(&decoded_version));
+    println!("Decoded body: {}", String::from_utf8_lossy(&decoded_body));
     0
 }
