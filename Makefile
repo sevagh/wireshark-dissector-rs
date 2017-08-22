@@ -32,4 +32,4 @@ wireshark_plugin:
 	@cd $$WIRESHARK_SRC_DIR && ./autogen.sh && make -C plugins && make && sudo make install && cd -
 
 
-.PHONY: clean, build, lint
+.PHONY: clean build lint
