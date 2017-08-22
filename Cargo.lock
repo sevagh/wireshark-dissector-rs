@@ -66,6 +66,11 @@ dependencies = [
 [[package]]
 name = "dummy_dissector"
 version = "0.1.0"
+dependencies = [
+ "common 0.1.0",
+ "libc 0.2.29 (registry+https://github.com/rust-lang/crates.io-index)",
+ "transform 0.1.0",
+]
 
 [[package]]
 name = "error-chain"

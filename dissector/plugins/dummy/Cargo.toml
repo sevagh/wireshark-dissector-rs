@@ -6,3 +6,8 @@ authors = ["Sevag Hanssian <sevag.hanssian@gmail.com>"]
 [lib]
 name = "dummy_dissector"
 crate-type = ["staticlib"]
+
+[dependencies]
+transform = { path = "../../../transform" }
+common = { path = "../../../common" }
+libc = "0.2.29"

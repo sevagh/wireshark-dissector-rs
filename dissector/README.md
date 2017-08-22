@@ -10,6 +10,9 @@
 Download and untar the [Wireshark source code](https://www.wireshark.org/download.html). Only tested on Wireshark 2.4.0 for now.
 
 ```shell
+$ pwd
+wireshark-dissector-rs
+$ cd dissector/plugins/dummy/ && make -f ./Makefile.rust && cd -
 $ cp -r ./dissector/plugins /path/to/wireshark-2.4.0
 $ cd /path/to/wireshsark-2.4.0
 $ ./autogen.sh

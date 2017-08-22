@@ -1,5 +1,11 @@
+all: libdummy_dissector
+
 libdummy_dissector:
 	@cargo build
 	@cp ../../../target/debug/libdummy_dissector.a ./
+
+lint:
+	@cargo +nightly fmt
+	@cargo +nightly clippy
 
 .PHONY: libdummy_dissector

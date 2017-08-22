@@ -1,7 +1,34 @@
 #![crate_type = "staticlib"]
 
+extern crate common;
+extern crate transform;
+extern crate libc;
+
+use common::MSGLEN;
+use transform::decode;
+use libc::{memcpy, c_void};
+
 #[no_mangle]
-pub extern fn dissect_dummy_rs(data: &[u8]) -> i32 {
-    println!("This is being printed from Rust!!!");
+pub extern "C" fn dissect_dummy_rs(data: &mut [u8]) -> i32 {
+    if data.len() != MSGLEN {
+        eprintln!("Payload length should be {} bytes", MSGLEN);
+        return -1;
+    }
+
+    let mut decoded_version = decode(&data[..8]);
+    let mut decoded_body = decode(&data[8..]);
+
+    unsafe {
+        memcpy(
+            data.as_mut_ptr() as *mut c_void,
+            decoded_version.as_mut_ptr() as *mut c_void,
+            MSGLEN * 8,
+        );
+        memcpy(
+            data[8..].as_mut_ptr() as *mut c_void,
+            decoded_body.as_mut_ptr() as *mut c_void,
+            MSGLEN * 8,
+        );
+    }
     0
 }
