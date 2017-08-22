@@ -10,6 +10,9 @@ use libc::{memcpy, c_void};
 
 #[no_mangle]
 pub extern "C" fn dissect_dummy_rs(data: &mut [u8]) -> i32 {
+    println!("Data length: {:#?}", data.len());
+    println!("Data: {:#?}", data);
+
     if data.len() != MSGLEN {
         eprintln!("Payload length should be {} bytes", MSGLEN);
         return -1;
