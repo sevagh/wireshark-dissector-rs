@@ -24,3 +24,19 @@ After the long first compile where `wireshark` is built, simply rebuilding the p
 $ ./autogen.sh
 $ make -C plugins
 ```
+
+Also, you must modify `wireshark-2.4.0/epan/Makefile.am` to include `dummy`:
+
+```shell
+if ENABLE_STATIC
+-include ../plugins/Custom.make
+plugin_src = \
+        ...
+        ../plugins/gryphon/packet-gryphon.c \
+        ../plugins/gryphon/plugin.c \
+        ../plugins/dummy/plugin.c \
+        ../plugins/dummy/packet-dummy.c \
+        ...
+```
+
+Without this step (although I couldn't find it in any online tutorials), `wireshark` fails to start with `unrecognized symbol` (i.e. couldn't link to `dummy.so`).

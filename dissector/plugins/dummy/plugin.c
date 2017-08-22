@@ -20,17 +20,21 @@ WS_DLL_PUBLIC_DEF const gchar version[] = VERSION;
 
 /* Start the functions we need for the plugin stuff */
 
+extern void proto_register_dummy(void);
+
 WS_DLL_PUBLIC_DEF void
 plugin_register (void)
 {
-    {extern void proto_register_dummy (void); proto_register_dummy ();}
+    void proto_register_dummy();
 }
 
 WS_DLL_PUBLIC_DEF void plugin_reg_handoff(void);
 
+extern void proto_reg_handoff_dummy(void);
+
 WS_DLL_PUBLIC_DEF void
 plugin_reg_handoff(void)
 {
-    {extern void proto_reg_handoff_dummy (void); proto_reg_handoff_dummy ();}
+    void proto_reg_handoff_dummy();
 }
 #endif

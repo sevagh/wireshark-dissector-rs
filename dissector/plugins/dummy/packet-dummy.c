@@ -11,8 +11,10 @@
 #define DUMMY_PORT 8888
 
 static int proto_dummy = -1;
-
 static gint ett_dummy = -1;
+
+void proto_register_dummy(void);
+void proto_reg_handoff_dummy(void);
 
 static int dissect_dummy(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *data)
 {
