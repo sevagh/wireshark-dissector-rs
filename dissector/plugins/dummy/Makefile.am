@@ -11,6 +11,17 @@ PLUGIN_NAME = dummy
 NONGENERATED_REGISTER_C_FILES = \
 	packet-dummy.c
 
+# Non-generated sources
+NONGENERATED_C_FILES = \
+	$(NONGENERATED_REGISTER_C_FILES)
+
+# Headers.
+CLEAN_HEADER_FILES = \
+	packet-dummy.h
+
+HEADER_FILES = \
+	$(CLEAN_HEADER_FILES)
+
 plugin_LTLIBRARIES = dummy.la
 
 dummy_la_SOURCES = \
@@ -29,9 +40,11 @@ CLEANFILES = \
 	dummy \
 	*~
 
-MAINTAINERCLEANFILES = \
-	Makefile.in	\
+DISTCLEANFILES = \
 	plugin.c
+
+MAINTAINERCLEANFILES = \
+	Makefile.in
 
 EXTRA_DIST = \
 	plugin.rc.in		\

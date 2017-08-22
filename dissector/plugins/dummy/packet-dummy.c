@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <glib.h>
 
+#include "./packet-dummy.h"
+
 #define DUMMY_PORT 8888
 
 static int proto_dummy = -1;
