@@ -25,7 +25,7 @@ extern void proto_register_dummy(void);
 WS_DLL_PUBLIC_DEF void
 plugin_register (void)
 {
-    void proto_register_dummy();
+    proto_register_dummy();
 }
 
 WS_DLL_PUBLIC_DEF void plugin_reg_handoff(void);
@@ -35,6 +35,6 @@ extern void proto_reg_handoff_dummy(void);
 WS_DLL_PUBLIC_DEF void
 plugin_reg_handoff(void)
 {
-    void proto_reg_handoff_dummy();
+    proto_reg_handoff_dummy();
 }
 #endif

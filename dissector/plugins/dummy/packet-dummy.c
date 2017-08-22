@@ -67,6 +67,7 @@ proto_register_dummy(void)
 
 	proto_register_field_array(proto_dummy, hf, array_length(hf));
 	proto_register_subtree_array(ett, array_length(ett));
+	module_t *dummy_module = prefs_register_protocol(proto_dummy, NULL);
 }
 
 void
@@ -75,5 +76,5 @@ proto_reg_handoff_dummy(void)
 	static dissector_handle_t dummy_handle;
 
 	dummy_handle = create_dissector_handle(dissect_dummy, proto_dummy);
-	dissector_add_uint("tcp.port", DUMMY_PORT, dummy_handle);
+	dissector_add_uint_with_preference("tcp.port", DUMMY_PORT, dummy_handle);
 }
