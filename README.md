@@ -87,7 +87,7 @@ E..D..@.@............."..Y.........V.8.....
 ........uftuwfs4ijgsjfoe
 ```
 
-Here we see the body: `uttuwfs4 ijgsjfoe`. This is `testver3 hifriend` with all the chars incremented, but pretend that this is a more complicated protocol with more fields and more rigorous encoding.
+Here we see the body: `uftuwfs4 ijgsjfoe`. This is `testver3 hifriend` with all the chars incremented, but pretend that this is a more complicated protocol with more fields and more rigorous encoding.
 
 #### Rust FFI in the Wireshark dissector
 
