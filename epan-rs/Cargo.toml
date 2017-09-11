@@ -2,6 +2,13 @@
 name = "epan"
 version = "0.1.0"
 authors = ["Sevag Hanssian <sevag.hanssian@gmail.com>"]
+license = "MIT"
+description = "Bindgen on the wireshark EPAN library"
+repository = "https://github.com/sevagh/wireshark-dissector-rs/tree/master/epan-rs"
+documentation = "https://github.com/sevagh/wireshark-dissector-rs/blob/master/epan-rs/README.txt"
+keywords = ["wireshark", "bindgen", "ffi", "epan"]
+categories = ["network-programming"]
+readme = "README.txt"
 
 [dependencies]
 
