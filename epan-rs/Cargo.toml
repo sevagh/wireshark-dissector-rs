@@ -1,0 +1,9 @@
+[package]
+name = "epan"
+version = "0.1.0"
+authors = ["Sevag Hanssian <sevag.hanssian@gmail.com>"]
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.30.0"
