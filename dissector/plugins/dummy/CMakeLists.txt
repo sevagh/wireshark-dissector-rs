@@ -40,23 +40,16 @@ set(CLEAN_FILES
 set_source_files_properties(
         ${CLEAN_FILES}
         PROPERTIES
-        COMPILE_FLAGS ${WERROR_COMMON_FLAGS}
+        COMPILE_FLAGS "${WERROR_COMMON_FLAGS}"
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-register_dissector_files(plugin.c
-	plugin
-	${DISSECTOR_SRC}
-)
+add_plugin_library(dummy epan)
 
-add_plugin_library(dummy)
+target_link_libraries(dummy epan "${CMAKE_CURRENT_SOURCE_DIR}/libdummy_dissector.a")
 
-install(TARGETS dummy
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION} NAMELINK_SKIP
-	RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION}
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CPACK_PACKAGE_NAME}/plugins/${CPACK_PACKAGE_VERSION}
-)
+install_plugin(dummy epan)
 
 file(GLOB DISSECTOR_HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*.h")
 CHECKAPI(
